@@ -5,7 +5,9 @@ const { listingschema, reviewschema } = require("./schema.js");
 
 module.exports.isLoggedin = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        req.session.redirectUrl = req.originalUrl;
+        if (req.method === "GET") {
+            req.session.redirectUrl = req.originalUrl;
+        }
         req.flash("error", "you must be logged in");
         return res.redirect("/login");
     }

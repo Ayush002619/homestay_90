@@ -2,8 +2,7 @@ if (process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
 
-// require('dotenv').config();
-// console.log(process.env.SECRET)
+
 
 const express = require("express");
 const app = express();
@@ -11,7 +10,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodoverride = require("method-override");
 const ejsMate = require("ejs-mate");
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+
 const dburl = process.env.ALTAS_URL;
 
 
@@ -80,15 +79,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// app.get("/demouser", async (req, res) => {
-//     let fakeuser = new User({
-//         email: "ayush@gmaiol.com",
-//         username: "delta-student",
-//     });
-//     let registereduser = await User.register(fakeuser, "helloworld");
-//     res.send(registereduser);
-// });
-
 //______________________Signup and Login___________________
 app.use("/", usersrouter);
 
@@ -98,23 +88,7 @@ app.use("/listings", listingsrouter);
 //_______________________________________________________FOR REVIEW________________________________________________________
 app.use("/listings/:id/reviews", reviewsrouter);
 
-// app.get("/testListing", async (req, res) => {
-//     let samplelistning = new Listing({
-//         title: "My new villa's",
-//         description: "By the beach",
-//         price: 1200,
-//         location: "Male,Maldives",
-//         country: "India",
-//     });
-//     await samplelistning.save();
-//     console.log("sample was saved");
-//     res.send("successfull testing");
-// });
 
-
-// app.get("/listings/cheks/err", (req, res) => {
-//     res.render("listings/error.ejs");
-// });
 
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found!"));
