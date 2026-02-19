@@ -45,13 +45,12 @@
 
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="/listings/new">Become a Host</a>
-                <% if(!locals.curruser){ %>
+                <% if(!curruser){ %>
                     <a class="nav-link" href="/signup"><b>sign up</b></a>
                     <a class="nav-link" href="/login"><b>log in</b></a>
-                    <% } %>
-                        <% if(locals.curruser){ %>
-                            <a class="nav-link" href="/logout"><b>log out</b></a>
-                            <% } %>
+                    <% } else {%>
+                        <a class="nav-link" href="/logout"><b>log out</b></a>
+                        <% } %>
             </div>
         </div>
     </div>
