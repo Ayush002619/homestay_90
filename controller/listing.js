@@ -38,7 +38,7 @@ module.exports.createroute = async (req, res, next) => {
             "https://api.geoapify.com/v1/geocode/search",
             {
                 params: {
-                    text:locationText,
+                    text: locationText,
                     limit: 1,
                     apiKey: process.env.MAP_TOKEN
                 }
@@ -89,13 +89,50 @@ module.exports.editroute = async (req, res) => {
 
 module.exports.updateroute = async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    // let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+    let listing = await Listing.findById(id);
+    if (!listing) {
+        req.flash("error", "Listing not found");
+        return res.redirect("/listings");
+    }
+
+    const oldLocation = listing.location;
+    const newLocation = req.body.listing.location;
+
+    if (oldLocation !== newLocation) {
+        try {
+            const response = await axios.get(
+                `https://api.geoapify.com/v1/geocode/search?text=${newLocation}&apiKey=${process.env.MAP_TOKEN}`
+            );
+
+            const coordinates =
+                response.data.features[0].geometry.coordinates;
+
+            listing.geometry = {
+                type: "Point",
+                coordinates: coordinates
+            };
+
+        } catch (err) {
+            console.log("Geocoding error:", err);
+            req.flash("error", "Invalid location");
+            return res.redirect("back");
+        }
+    }
+
+    listing.title = req.body.listing.title;
+    listing.description = req.body.listing.description;
+    listing.price = req.body.listing.price;
+    listing.location = newLocation;
+    listing.country = req.body.listing.country;
+
     if (typeof req.file !== "undefined") {
         let url = req.file.path;
         let filename = req.file.filename;
         listing.image = { url, filename };
-        await listing.save();
     };
+    await listing.save();
     req.flash("success", "Listing updated!");
     res.redirect(`/listings/${id}`);
 };
