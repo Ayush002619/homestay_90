@@ -38,7 +38,7 @@ module.exports.createroute = async (req, res, next) => {
             "https://api.geoapify.com/v1/geocode/search",
             {
                 params: {
-                    text: req.body.listing.location,
+                    text:locationText,
                     limit: 1,
                     apiKey: process.env.MAP_TOKEN
                 }
@@ -56,7 +56,7 @@ module.exports.createroute = async (req, res, next) => {
 
         const { lat, lon } = geoData.features[0].properties;
 
-        // 3️⃣ Save coordinates in GeoJSON format
+        //Save coordinates in GeoJSON format
         newlisting.geometry = {
             type: "Point",
             coordinates: [lon, lat] // [longitude, latitude]
