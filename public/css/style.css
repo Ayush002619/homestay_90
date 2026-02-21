@@ -11,7 +11,7 @@ body {
 
 .navbar {
     height: 5rem;
-    background-color: white;
+    background-color: rgb(241, 229, 229);
 
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 .fa-house {
-    color:#FF5A5F;
+    color: #FF5A5F;
     font-size: 2.1rem;
 }
 
@@ -108,4 +108,10 @@ body {
 .show-card {
     padding-left: 0;
     padding-right: 0;
+}
+
+.btn-success {
+    background-color: #fe424d !important;
+    color: white;
+    border: none;
 }
