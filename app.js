@@ -89,7 +89,12 @@ app.use("/listings", listingsrouter);
 //_______________________________________________________FOR REVIEW________________________________________________________
 app.use("/listings/:id/reviews", reviewsrouter);
 
-
+app.get("/privacy", (req, res) => {
+    res.render("static/privacy.ejs");
+});
+app.get("/terms", (req, res) => {
+    res.render("static/terms.ejs");
+});
 
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found!"));

@@ -149,6 +149,7 @@ module.exports.searchroute = async (req, res) => {
     const { location } = req.query;
 
     if (!location || location.trim() === "") {
+        req.flash("error", "Please enter a destination");
         return res.redirect("/listings");
     }
 
@@ -161,17 +162,18 @@ module.exports.searchroute = async (req, res) => {
             ]
         });
 
-        let message = null;
-
         if (listings.length === 0) {
             req.flash("error", "Such location not found in our database");
             return res.redirect("/listings");
         }
 
-        res.render("listings/index.ejs", { allListings: listings, location, message });
+        res.render("listings/index.ejs", {
+            allListings: listings,
+            location
+        });
 
     } catch (err) {
         console.log("SEARCH ERROR:", err);
         res.send(err.message);
     }
-}
+};

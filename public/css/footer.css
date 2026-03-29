@@ -1,0 +1,19 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+h1,
+h3 {
+    color: #222;
+}
+
+p,
+li {
+    color: #555;
+    line-height: 1.7;
+}
