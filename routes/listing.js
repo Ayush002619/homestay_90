@@ -22,7 +22,8 @@ router
 
 //______________NEW ROUTE____________________
 router.get("/new", isLoggedin, listingcontroller.newroute);
-
+//______________SEARCH ROUTE_________________
+router.get("/search", listingcontroller.searchroute);
 router
     .route("/:id")
     //_____________SHOW ROUTE_______________

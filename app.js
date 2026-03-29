@@ -2,7 +2,7 @@ if (process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
 
-
+const Listing = require("./models/listing.js");
 
 const express = require("express");
 const app = express();
@@ -24,6 +24,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const Localstrategy = require("passport-local");
 const User = require("./models/user.js");
+const { searchroute } = require("./controller/listing.js");
 
 
 
