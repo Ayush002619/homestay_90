@@ -1,3 +1,11 @@
+@media (max-width: 480px) {
+
+    .starability-result {
+        transform: scale(0.5);
+        transform-origin: left center;
+    }
+}
+
 .starability-result {
     position: relative;
     width: 150px;
